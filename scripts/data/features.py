@@ -37,6 +37,9 @@ def temporal_features(df):
     df["loan_age_days"]  = (ref_date - df["issue_d"]).dt.days
     df["issue_month"]    = df["issue_d"].dt.month
     df["issue_quarter"]  = df["issue_d"].dt.quarter
+    if "issue_year" in df.columns:
+        return df
+    df["issue_year"] = 2018 - (df["loan_age_days"] // 365).astype(int)
     return df
 
 def encode_str(df):
